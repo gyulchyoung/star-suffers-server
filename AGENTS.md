@@ -149,12 +149,12 @@ Required sections:
 ## AI 사용 여부
 - [ ] 코드 생성 또는 수정에 AI를 사용했습니다.
 - [ ] PR 본문 작성에 AI를 사용했습니다.
-- [ ] AI를 사용하지 않았습니다.
+- [ ] 테스트 코드 작성에 AI를 사용했습니다.
 
 ## 테스트
-- [ ] 테스트 미실행
-- [ ] 로컬 테스트 완료
-- [ ] 기타
+- [ ] 로컬 테스트를 실행했습니다.
+- [ ] 수동 테스트를 실행했습니다.
+- [ ] 테스트 결과를 PR 본문에 정리했습니다.
 
 ## 참고 사항
 - 리뷰어가 알면 좋은 배경, 제약, 후속 작업 등을 적습니다.
@@ -166,7 +166,7 @@ Template guidance:
 - describe user-facing or developer-facing changes clearly
 - mark separately whether AI was used for code changes and for PR writing
 - keep the template suitable for both AI and non-AI contributors
-- if tests were not run, say so plainly
+- describe clearly which tests were executed
 - include the pre-change plan that was shared with the user
 
 ## Notes
