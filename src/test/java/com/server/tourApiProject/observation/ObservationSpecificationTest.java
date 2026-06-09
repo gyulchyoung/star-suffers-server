@@ -3,7 +3,6 @@ package com.server.tourApiProject.observation;
 import com.server.tourApiProject.observation.observeHashTag.ObserveHashTag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.jpa.domain.Specification;
@@ -164,7 +163,7 @@ class ObservationSpecificationTest {
         when(criteriaBuilder.exists(subquery)).thenReturn(existsPredicate);
         when(areaCodePath.in(areaCodes)).thenReturn(areaPredicate);
         when(criteriaBuilder.and(areaPredicate)).thenReturn(areaPredicate);
-        when(criteriaBuilder.and(any(Predicate[].class))).thenReturn(finalPredicate);
+        when(criteriaBuilder.and(orPredicate, existsPredicate, areaPredicate)).thenReturn(finalPredicate);
 
         Specification<Observation> specification =
                 ObservationSpecification.likeSearchKeyAndInFilter("sky", hashtagIds, areaCodes);
@@ -173,11 +172,7 @@ class ObservationSpecificationTest {
 
         assertSame(finalPredicate, result);
 
-        ArgumentCaptor<Predicate[]> predicateCaptor = ArgumentCaptor.forClass(Predicate[].class);
-        verify(criteriaBuilder).and(predicateCaptor.capture());
-        assertSame(orPredicate, predicateCaptor.getValue()[0]);
-        assertSame(existsPredicate, predicateCaptor.getValue()[1]);
-        assertSame(areaPredicate, predicateCaptor.getValue()[2]);
+        verify(criteriaBuilder).and(orPredicate, existsPredicate, areaPredicate);
     }
 
     @Test

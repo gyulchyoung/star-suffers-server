@@ -13,8 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -41,7 +43,7 @@ class CourseServiceTest {
     void getCourseTPList_sortsCoursesByOrderBeforeMappingTouristPoints() {
         Course later = Course.builder().observationId(1L).touristPointId(200L).courseOrder(2).build();
         Course earlier = Course.builder().observationId(1L).touristPointId(100L).courseOrder(1).build();
-        when(courseRepository.findByObservationId(1L)).thenReturn(List.of(later, earlier));
+        when(courseRepository.findByObservationId(1L)).thenReturn(new ArrayList<>(List.of(later, earlier)));
         when(touristDataRepository.findByContentId(100L)).thenReturn(touristData(100L, 12L, "A", "CAT_A"));
         when(touristDataRepository.findByContentId(200L)).thenReturn(touristData(200L, 39L, "B", "CAT_B"));
         when(contentTypeRepository.findByCat3Code("CAT_A")).thenReturn(contentType("전망대"));
@@ -49,7 +51,7 @@ class CourseServiceTest {
 
         List<TouristDataCourseParams> result = courseService.getCourseTPList(1L);
 
-        assertEquals(List.of("A", "B"), result.stream().map(TouristDataCourseParams::getTitle).toList());
+        assertEquals(List.of("A", "B"), result.stream().map(TouristDataCourseParams::getTitle).collect(Collectors.toList()));
     }
 
     @Test
@@ -58,10 +60,10 @@ class CourseServiceTest {
         observation.setObservationId(1L);
         observation.setObservationName("메인 관측지");
         observation.setCourseOrder(1);
-        when(courseRepository.findByObservationId(1L)).thenReturn(List.of(
+        when(courseRepository.findByObservationId(1L)).thenReturn(new ArrayList<>(List.of(
                 Course.builder().observationId(1L).touristPointId(100L).courseOrder(0).build(),
                 Course.builder().observationId(1L).touristPointId(200L).courseOrder(2).build()
-        ));
+        )));
         when(observationRepository.findById(1L)).thenReturn(Optional.of(observation));
         when(touristDataRepository.findByContentId(100L)).thenReturn(touristData(100L, 12L, "첫 코스", "CAT_A"));
         when(touristDataRepository.findByContentId(200L)).thenReturn(touristData(200L, 39L, "마지막 코스", "CAT_B"));
