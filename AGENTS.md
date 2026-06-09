@@ -51,16 +51,16 @@ When starting work, agents should usually inspect these files first:
 Run from the repository root.
 
 ```powershell
-.\\gradlew.bat test
-.\\gradlew.bat bootRun
-.\\gradlew.bat clean build
+.\gradlew.bat test
+.\gradlew.bat bootRun
+.\gradlew.bat clean build
 ```
 
 If a specific profile is needed:
 
 ```powershell
-.\\gradlew.bat bootRun -Pprofile=local
-.\\gradlew.bat clean build -Pprofile=local
+.\gradlew.bat bootRun -Pprofile=local
+.\gradlew.bat clean build -Pprofile=local
 ```
 
 ## Change Guidance
