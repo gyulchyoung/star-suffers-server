@@ -25,6 +25,9 @@ spring: #공통
   config:
     activate:
       on-profile: "common"
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   sql:
     init:
       mode: always
@@ -53,5 +56,4 @@ spring: #사용자보안
     properties.mail.smtp:
       auth: true
       starttls.enable: true
-
 
